@@ -17,6 +17,12 @@ Plugin 'benmills/vimux'
 Plugin 'zah/nimrod.vim'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'elmcast/elm-vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'mileszs/ack.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'powerline/powerline'
+
 
 " The bundles you install will be listed here
 
@@ -234,5 +240,18 @@ endf
 nn <M-g> :call JumpToDef()<cr>
 ino <M-g> <esc>:call JumpToDef()<cr>i
 
+" copy from clipboard
 map ,y "+y
 map ,p "+p
+
+syntax enable
+set background=dark
+colorscheme solarized
+
+set rtp+=$HOME/.vim/bundle/powerline/powerline/bindings/vim/
+
+" Always show statusline
+set laststatus=2
+
+" User 256 colors
+set t_Co=256
