@@ -21,7 +21,11 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'mileszs/ack.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'powerline/powerline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'eagletmt/neco-ghc'
+Plugin 'godlygeek/tabular'
+Plugin 'ervandew/supertab'
+Plugin 'Shougo/neocomplete.vim'
 
 
 " The bundles you install will be listed here
@@ -45,15 +49,16 @@ set tags=./tags,./TAGS,tags;~,TAGS;~
 
 "syntastic
 "
+map <Leader>s :SyntasticToggleMode<CR>
 set statusline=%t
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 
 
@@ -248,10 +253,29 @@ syntax enable
 set background=dark
 colorscheme solarized
 
-set rtp+=$HOME/.vim/bundle/powerline/powerline/bindings/vim/
 
 " Always show statusline
 set laststatus=2
 
 " User 256 colors
 set t_Co=256
+
+"ghc-mod
+map <silent> tw :GhcModTypeInsert<CR>
+map <silent> ts :GhcModSplitFunCase<CR>
+map <silent> tq :GhcModType<CR>
+map <silent> te :GhcModTypeClear<CR>
+
+"supertab
+let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+
+let g:haskellmode_completion_ghc = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+"tabular
+let g:haskell_tabular = 1
+
+vmap a= :Tabularize /=<CR>
+vmap a; :Tabularize /::<CR>
+vmap a- :Tabularize /-><CR>
