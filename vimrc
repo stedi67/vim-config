@@ -33,6 +33,8 @@ Plugin 'Shougo/neocomplete.vim'
 call vundle#end()
 filetype plugin indent on
 
+set number
+
 augroup vimrc_autocmds
 	autocmd!
 	" highlight characters past column 120
