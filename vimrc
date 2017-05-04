@@ -251,6 +251,7 @@ ino <M-g> <esc>:call JumpToDef()<cr>i
 map ,y "+y
 map ,p "+p
 
+let g:solarized_termcolors=256
 syntax enable
 set background=dark
 colorscheme solarized
