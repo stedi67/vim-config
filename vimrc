@@ -1,29 +1,40 @@
-set nocompatible
-filetype off
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Required:
+set runtimepath+=/home/std/.cache/dein/repos/github.com/Shougo/dein.vim
 
-"let Vundle manage Vundle
-"required!
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'klen/python-mode'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'tpope/vim-cucumber'
-Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'wting/rust.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'benmills/vimux'
-Plugin 'zah/nimrod.vim'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'elmcast/elm-vim'
+" Required:
+if dein#load_state('/home/std/.cache/dein')
+  call dein#begin('/home/std/.cache/dein')
 
-" The bundles you install will be listed here
+  " Let dein manage dein
+  " Required:
+  call dein#add('/home/std/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-call vundle#end()
+  " Add or remove your plugins here like this:
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('scrooloose/syntastic')
+  call dein#add('jmcantrell/vim-virtualenv')
+  call dein#add('pangloss/vim-javascript')
+  call dein#add('altercation/vim-colors-solarized')
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+" Required:
 filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
 
 augroup vimrc_autocmds
 	autocmd!
