@@ -3,15 +3,15 @@ if &compatible
 endif
 
 " Required:
-set runtimepath+=/home/std/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
-if dein#load_state('/home/std/.cache/dein')
-  call dein#begin('/home/std/.cache/dein')
+if dein#load_state('~/.cache/dein')
+  call dein#begin('~/.cache/dein')
 
   " Let dein manage dein
   " Required:
-  call dein#add('/home/std/.cache/dein/repos/github.com/Shougo/dein.vim')
+  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
 
   " Add or remove your plugins here like this:
   call dein#add('Shougo/neosnippet.vim')
@@ -21,15 +21,10 @@ if dein#load_state('/home/std/.cache/dein')
   call dein#add('jmcantrell/vim-virtualenv')
   call dein#add('pangloss/vim-javascript')
   call dein#add('altercation/vim-colors-solarized')
-  " eventually, you need to run 'make' inside the downloaded plugin
-  " (.cache/...
-  call dein#add('fsharp/vim-fsharp', {
-    \ 'description': 'F# support for Vim',
-    \ 'lazy': 1,
-    \ 'autoload': {'filetypes': 'fsharp'},
-    \ 'build': {'unix': 'make fsautocomplete'},
-    \ 'build_commands': ['curl', 'make', 'mozroots', 'touch', 'unzip'],
-    \ })
+  " you need to run
+  " '~/.cache/dein/repos/github.com/fsharp/vim-fsharp/install.sh'
+  call dein#add('fsharp/vim-fsharp')
+
   call dein#add('autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': './install.sh',
@@ -303,10 +298,11 @@ vmap a- :Tabularize /-><CR>
 
 " fsharp
 let g:fsharp_interactive_bin = '/usr/bin/fsharpi'
-let g:fsharp_xbuild_path = '/usr/bin/dotnet build'
+" let g:fsharp_xbuild_path = '/usr/bin/dotnet build'
 
 " language server
 
 let g:LanguageClient_serverCommands = {
-  \ 'python': ['/home/std/.virtualenvs/ableton.com/bin/pyls'],
+  \ 'python': ['~/.virtualenvs/ableton.com/bin/pyls'],
+  \ 'fsharp': ['dotnet', '~/projects/external/fsharp-language-server/src/FSharpLanguageServer/bin/Release/netcoreapp2.0/FSharpLanguageServer.dll']
   \ }
