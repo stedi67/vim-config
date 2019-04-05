@@ -21,6 +21,20 @@ if dein#load_state('/home/std/.cache/dein')
   call dein#add('jmcantrell/vim-virtualenv')
   call dein#add('pangloss/vim-javascript')
   call dein#add('altercation/vim-colors-solarized')
+  " eventually, you need to run 'make' inside the downloaded plugin
+  " (.cache/...
+  call dein#add('fsharp/vim-fsharp', {
+    \ 'description': 'F# support for Vim',
+    \ 'lazy': 1,
+    \ 'autoload': {'filetypes': 'fsharp'},
+    \ 'build': {'unix': 'make fsautocomplete'},
+    \ 'build_commands': ['curl', 'make', 'mozroots', 'touch', 'unzip'],
+    \ })
+  call dein#add('autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': './install.sh',
+    \ })
+
 
   " Required:
   call dein#end()
@@ -34,6 +48,8 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
+
+set nocscopeverbose
 
 set number
 
@@ -284,3 +300,13 @@ let g:haskell_tabular = 1
 vmap a= :Tabularize /=<CR>
 vmap a; :Tabularize /::<CR>
 vmap a- :Tabularize /-><CR>
+
+" fsharp
+let g:fsharp_interactive_bin = '/usr/bin/fsharpi'
+let g:fsharp_xbuild_path = '/usr/bin/dotnet build'
+
+" language server
+
+let g:LanguageClient_serverCommands = {
+  \ 'python': ['/home/std/.virtualenvs/ableton.com/bin/pyls'],
+  \ }
