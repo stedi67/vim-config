@@ -23,11 +23,14 @@ if dein#load_state('~/.cache/dein')
   call dein#add('altercation/vim-colors-solarized')
   " you need to run
   " '~/.cache/dein/repos/github.com/fsharp/vim-fsharp/install.sh'
-  call dein#add('fsharp/vim-fsharp')
+  call dein#add('fsharp/vim-fsharp', {
+    \ 'rev': 'master',
+    \ 'build': './install.sh',
+    \ })
 
   call dein#add('autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': './install.sh',
+    \ 'rev': 'next',
+    \ 'build': './install.sh',
     \ })
 
 
