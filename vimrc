@@ -27,7 +27,6 @@ if dein#load_state('/home/std/.cache/dein')
   call dein#save_state()
 endif
 
-" Required:
 filetype plugin indent on
 syntax enable
 
@@ -35,6 +34,8 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
+
+set number
 
 augroup vimrc_autocmds
 	autocmd!
@@ -46,55 +47,23 @@ augroup END
 
 map <F2> :NERDTreeToggle<CR>
 
-" Python-mode
-" Activate rope
-" Keys:
-" K             Show python docs
-" <Ctrl-Space>  Rope autocomplete
-" <Ctrl-c>g     Rope goto definition
-" <Ctrl-c>d     Rope show documentation
-" <Ctrl-c>f     Rope find occurrences
-" <Leader>b     Set, unset breakpoint (g:pymode_breakpoint enabled)
-" [[            Jump on previous class or function (normal, visual, operator modes)
-" ]]            Jump on next class or function (normal, visual, operator modes)
-" [M            Jump on previous class or method (normal, visual, operator modes)
-" ]M            Jump on next class or method (normal, visual, operator modes)
-let g:pymode_rope = 0
-
-" Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-
-"Linting
-let g:pymode_lint = 0
-let g:pymode_lint_checkers = ['pyflakes','pep8', 'mccabe']
-" Auto check on save
-let g:pymode_lint_write = 0
-let g:pymode_lint_on_fly = 1
-let g:pep8_ignore="E501"
-
-" Support virtualenv
-let g:pymode_virtualenv = 1
-
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_key = '<leader>b'
-
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-
-" Don't autofold code
-let g:pymode_folding = 0
-
-" redefine maximum line length
-let g:pymode_options_max_line_length = 120
-
 set hlsearch
 
 set tags=./tags,./TAGS,tags;~,TAGS;~
+
+"syntastic
+"
+map <Leader>s :SyntasticToggleMode<CR>
+set statusline=%t
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8']
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -260,10 +229,13 @@ if has("cscope")
     "set ttimeoutlen=100
 
 endif
+
 set smartindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
+
+autocmd BufNewFile,BufReadPost *.elm setl shiftwidth=2 tabstop=2
 
 fun! JumpToDef()
   if exists("*GotoDefinition_" . &filetype)
@@ -276,3 +248,39 @@ endf
 " Jump to tag
 nn <M-g> :call JumpToDef()<cr>
 ino <M-g> <esc>:call JumpToDef()<cr>i
+
+" copy from clipboard
+map ,y "+y
+map ,p "+p
+
+let g:solarized_termcolors=256
+syntax enable
+set background=dark
+colorscheme solarized
+
+
+" Always show statusline
+set laststatus=2
+
+" User 256 colors
+set t_Co=256
+
+"ghc-mod
+map <silent> tw :GhcModTypeInsert<CR>
+map <silent> ts :GhcModSplitFunCase<CR>
+map <silent> tq :GhcModType<CR>
+map <silent> te :GhcModTypeClear<CR>
+
+"supertab
+let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
+inoremap <Nul> <c-r>=SuperTabAlternateCompletion("\<lt>c-x>\<lt>c-o>")<cr>
+
+let g:haskellmode_completion_ghc = 1
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+"tabular
+let g:haskell_tabular = 1
+
+vmap a= :Tabularize /=<CR>
+vmap a; :Tabularize /::<CR>
+vmap a- :Tabularize /-><CR>
