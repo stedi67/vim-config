@@ -1,8 +1,7 @@
 # vim-config
-My personal vim setup
+My personal vim/neovim setup
 
 ## Installation
 1. `git clone git@github.com:stedi67/vim-config.git ~/.vim/vim-config`
 2. `ln -s ~/.vim/vim-config/vimrc ~/.vimrc`
-3. `git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
-4. `vim +PluginInstall +qall`
+3. install vim package manager 'dein' (https://github.com/Shougo/dein.vim)
