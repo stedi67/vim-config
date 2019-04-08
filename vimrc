@@ -25,7 +25,7 @@ if dein#load_state('~/.cache/dein')
   " '~/.cache/dein/repos/github.com/fsharp/vim-fsharp/install.sh'
   call dein#add('fsharp/vim-fsharp', {
     \ 'rev': 'master',
-    \ 'build': './install.sh',
+    \ 'build': 'make fsautocomplete',
     \ })
 
   call dein#add('autozimu/LanguageClient-neovim', {
@@ -305,7 +305,7 @@ let g:fsharp_interactive_bin = '/usr/bin/fsharpi'
 
 " language server
 
-let g:LanguageClient_serverCommands = {
-  \ 'python': ['~/.virtualenvs/ableton.com/bin/pyls'],
-  \ 'fsharp': ['dotnet', '~/projects/external/fsharp-language-server/src/FSharpLanguageServer/bin/Release/netcoreapp2.0/FSharpLanguageServer.dll']
-  \ }
+" let g:LanguageClient_serverCommands = {
+"  \ 'python': ['~/.virtualenvs/ableton.com/bin/pyls'],
+"  \ 'fsharp': ['dotnet', '~/projects/external/fsharp-language-server/src/FSharpLanguageServer/bin/Release/netcoreapp2.0/FSharpLanguageServer.dll']
+"  \ }
