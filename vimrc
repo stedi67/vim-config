@@ -69,7 +69,7 @@ set tags=./tags,./TAGS,tags;~,TAGS;~
 "syntastic
 "
 map <Leader>s :SyntasticToggleMode<CR>
-set statusline=%t
+set statusline=%f
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
