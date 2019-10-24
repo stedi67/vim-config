@@ -39,6 +39,7 @@ if dein#load_state('~/.cache/dein')
   call dein#save_state()
 endif
 
+" Required:
 filetype plugin indent on
 syntax enable
 
@@ -68,7 +69,7 @@ set tags=./tags,./TAGS,tags;~,TAGS;~
 "syntastic
 "
 map <Leader>s :SyntasticToggleMode<CR>
-set statusline=%t
+set statusline=%f
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
