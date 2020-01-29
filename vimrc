@@ -32,6 +32,7 @@ if dein#load_state('~/.cache/dein')
     \ 'rev': 'next',
     \ 'build': './install.sh',
     \ })
+  call dein#add('Vimjas/vim-python-pep8-indent')
 
 
   " Required:
