@@ -21,18 +21,15 @@ if dein#load_state('~/.cache/dein')
   call dein#add('jmcantrell/vim-virtualenv')
   call dein#add('pangloss/vim-javascript')
   call dein#add('altercation/vim-colors-solarized')
-  " you need to run
-  " '~/.cache/dein/repos/github.com/fsharp/vim-fsharp/install.sh'
-  call dein#add('fsharp/vim-fsharp', {
-    \ 'rev': 'master',
-    \ 'build': 'make fsautocomplete',
-    \ })
-
   call dein#add('autozimu/LanguageClient-neovim', {
     \ 'rev': 'next',
     \ 'build': './install.sh',
     \ })
   call dein#add('Vimjas/vim-python-pep8-indent')
+  call dein#add('ionide/Ionide-vim', {
+    \ 'build': 'make fsautocomplete',
+    \ })
+  " call dein#add('neoclide/coc.nvim', { 'merged': 0 })
 
 
   " Required:
@@ -80,6 +77,9 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
+
+"python
+let g:python3_host_prog = '/usr/bin/python3'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -307,7 +307,23 @@ let g:fsharp_interactive_bin = '/usr/bin/fsharpi'
 
 " language server
 
-" let g:LanguageClient_serverCommands = {
-"  \ 'python': ['~/.virtualenvs/ableton.com/bin/pyls'],
-"  \ 'fsharp': ['dotnet', '~/projects/external/fsharp-language-server/src/FSharpLanguageServer/bin/Release/netcoreapp2.0/FSharpLanguageServer.dll']
-"  \ }
+let g:LanguageClient_serverCommands = {
+  \ 'python': ['/snap/bin/pyls'],
+  \ 'haskell': ['haskell-language-server-wrapper', '--lsp']
+  \ }
+
+let mapleader = ','
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
+map <Leader>lg :call LanguageClient#textDocument_definition()<CR>
+map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+map <Leader>lb :call LanguageClient#textDocument_references()<CR>
+map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
+map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+
+hi link ALEError Error
+hi Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
+hi link ALEWarning Warning
+hi link ALEInfo SpellCap
