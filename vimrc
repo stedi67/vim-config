@@ -308,7 +308,7 @@ let g:fsharp_interactive_bin = '/usr/bin/fsharpi'
 " language server
 
 let g:LanguageClient_serverCommands = {
-  \ 'python': ['/home/std/.local/bin/pyls'],
+  \ 'python': ['/usr/bin/pyls'],
   \ 'haskell': ['haskell-language-server-wrapper', '--lsp']
   \ }
 
