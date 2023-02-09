@@ -119,6 +119,8 @@ end
 -- Mason setup
 require("mason").setup()
 require("mason-lspconfig").setup()
+
+-- Language Server Setup
 require("lspconfig").pyright.setup{
     on_attach = on_attach,
 }
