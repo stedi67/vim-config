@@ -19,6 +19,10 @@ require('packer').startup(function(use)
   use { "williamboman/mason.nvim",
   	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",}
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
 
 -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -44,7 +48,19 @@ if is_bootstrap then
   return
 end
 
+-- Global settings
 vim.g.mapleader = ','
+
+vim.opt.smartindent = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.laststatus = 2
+vim.opt.cursorline = true
+vim.opt.number = true
+vim.opt.mouse = 'a'
+vim.opt.ignorecase = true
+
 -- Set colorscheme
 vim.o.termguicolors = true
 
@@ -72,14 +88,6 @@ require('gruvbox').setup({
   transparent_mode = false,
 })
 vim.cmd([[colorscheme gruvbox]])
-
--- Global settings
-
-vim.g.smartindent = true
-vim.g.tabstop = 4
-vim.g.shiftwidth = 4
-vim.g.expandtab = true
-vim.g.laststatus = 2
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -123,4 +131,19 @@ require("mason-lspconfig").setup()
 -- Language Server Setup
 require("lspconfig").pyright.setup{
     on_attach = on_attach,
+}
+
+require('lualine').setup {
+  options = {
+    theme = 'gruvbox',
+  },
+  sections = {
+    lualine_c = {
+      {
+        'filename',
+        file_status = true,
+        path = 1,
+      }
+    }
+  }
 }
