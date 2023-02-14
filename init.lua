@@ -5,7 +5,7 @@ local is_bootstrap = false
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
   is_bootstrap = true
   vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-  vim.cmd [[packadd packer.nvim]]
+  vim.cmd('packadd packer.nvim')
 end
 
 require('packer').startup(function(use)
@@ -23,6 +23,7 @@ require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
+  use "nvim-treesitter/nvim-treesitter"
 
 -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -59,6 +60,9 @@ vim.opt.laststatus = 2
 vim.opt.cursorline = true
 vim.opt.number = true
 vim.opt.mouse = 'a'
+
+-- Ignore the case when the search pattern is all lowercase
+vim.opt.smartcase = true
 vim.opt.ignorecase = true
 
 -- Set colorscheme
@@ -87,7 +91,7 @@ require('gruvbox').setup({
   dim_inactive = false,
   transparent_mode = false,
 })
-vim.cmd([[colorscheme gruvbox]])
+vim.cmd('colorscheme gruvbox')
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -136,6 +140,7 @@ require("lspconfig").pyright.setup{
 require('lualine').setup {
   options = {
     theme = 'gruvbox',
+    icons_enabled = false,
   },
   sections = {
     lualine_c = {
@@ -147,3 +152,30 @@ require('lualine').setup {
     }
   }
 }
+
+require('nvim-treesitter.configs').setup({
+  highlight = {
+    enable = true,
+  },
+  ensure_installed = {
+    'c',
+    'lua',
+    'vim',
+    'help',
+    'javascript',
+    'typescript',
+    'tsx',
+    'css',
+    'json',
+    'python',
+    'cpp',
+    'fsh',
+    'elm',
+    'haskell',
+    'html',
+    'htmldjango',
+    'nix',
+    'ocaml',
+    'rust',
+  },
+})
