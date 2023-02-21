@@ -91,7 +91,7 @@ require('gruvbox').setup({
   dim_inactive = false,
   transparent_mode = false,
 })
--- vim.cmd('colorscheme gruvbox')
+vim.cmd('colorscheme gruvbox')
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
