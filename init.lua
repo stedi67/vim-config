@@ -12,6 +12,9 @@ require('packer').startup(function(use)
   -- Package manager
   use 'wbthomason/packer.nvim'
 
+  -- Gruvbox theme
+  use 'ellisonleao/gruvbox.nvim'
+
   -- Mason (installs language servers for example)
   use { "williamboman/mason.nvim",
   	"williamboman/mason-lspconfig.nvim",
@@ -62,6 +65,34 @@ vim.opt.mouse = 'a'
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
 
+-- Set colorscheme
+vim.o.termguicolors = true
+
+-- gruvbox setup
+require('gruvbox').setup({
+  undercurl = true,
+  underline = true,
+  bold = false,
+  italic = false,
+  strikethrough = true,
+  invert_selection = false,
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true, -- invert background for search, diffs, statuslines and errors
+  contrast = 'hard', -- can be 'hard', 'soft' or empty string
+  palette_overrides = {},
+  overrides = {
+    SignColumn = {bg = '#1d2021'},
+    GitSignsAdd = {bg = '#1d2021', fg = '#b8bb26'},
+    GitSignsChange = {bg = '#1d2021', fg = '#d65d0e'},
+    GitSignsDelete = {bg = '#1d2021', fg = '#cc241d'},
+  },
+  dim_inactive = false,
+  transparent_mode = false,
+})
+vim.cmd('colorscheme gruvbox')
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
@@ -108,6 +139,7 @@ require("lspconfig").pyright.setup{
 
 require('lualine').setup {
   options = {
+    theme = 'gruvbox',
     icons_enabled = false,
   },
   sections = {
