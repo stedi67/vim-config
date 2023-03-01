@@ -19,11 +19,16 @@ require('packer').startup(function(use)
   use { "williamboman/mason.nvim",
   	"williamboman/mason-lspconfig.nvim",
 	"neovim/nvim-lspconfig",}
+
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
+
   use "nvim-treesitter/nvim-treesitter"
+
+  -- syntastic, python flake8 seems to be active by default
+  use "vim-syntastic/syntastic"
 
 -- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
   local has_plugins, plugins = pcall(require, 'custom.plugins')
@@ -188,3 +193,11 @@ vim.diagnostic.config({
 })
 
 vim.cmd('autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})')
+
+-- syntastic setup
+vim.opt.statusline:append('%#warningmsg#')
+vim.opt.statusline:append('%{SyntasticStatuslineFlag()}')
+vim.opt.statusline:append('%*')
+vim.g['syntastic_always_populate_loc_list'] = '1'
+vim.g['syntastic_check_on_open'] = '0'
+vim.g['syntastic_check_on_wq'] = '0'
