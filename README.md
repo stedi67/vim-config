@@ -7,3 +7,4 @@ My personal neovim setup
 2. Make sure to have the latest neovim package installed. Download the `.deb` package from https://github.com/neovim/neovim/releases
    and install with `sudo dpkg -i nvim-linux64.deb`
 3. Install the python language server `pyright` by running `pip3 install pyright`
+4. Good font to use: Fira Code
