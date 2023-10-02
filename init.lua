@@ -64,7 +64,7 @@ vim.opt.expandtab = true
 vim.opt.laststatus = 2
 vim.opt.cursorline = true
 vim.opt.number = true
-vim.opt.mouse = 'a'
+vim.opt.mouse = ''
 
 -- Ignore the case when the search pattern is all lowercase
 vim.opt.smartcase = true
