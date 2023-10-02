@@ -1,59 +1,20 @@
--- from https://github.com/radsoc/kickstart.nvim/blob/master/init.lua
+# lazy installation
 
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local is_bootstrap = false
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-  is_bootstrap = true
-  vim.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-  vim.cmd('packadd packer.nvim')
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
 
-require('packer').startup(function(use)
-  -- Package manager
-  use 'wbthomason/packer.nvim'
+vim.opt.rtp:prepend(lazypath)
 
-  -- Gruvbox theme
-  use 'ellisonleao/gruvbox.nvim'
-
-  -- Mason (installs language servers for example)
-  use { "williamboman/mason.nvim",
-  	"williamboman/mason-lspconfig.nvim",
-	"neovim/nvim-lspconfig",}
-
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
-
-  use "nvim-treesitter/nvim-treesitter"
-
-  -- syntastic, python flake8 seems to be active by default
-  use "vim-syntastic/syntastic"
-
--- Add custom plugins to packer from ~/.config/nvim/lua/custom/plugins.lua
-  local has_plugins, plugins = pcall(require, 'custom.plugins')
-  if has_plugins then
-    plugins(use)
-  end
-
-  if is_bootstrap then
-    require('packer').sync()
-  end
-end)
-
--- When we are bootstrapping a configuration, it doesn't
--- make sense to execute the rest of the init.lua.
 --
--- You'll need to restart nvim, and then it will work.
-if is_bootstrap then
-  print '=================================='
-  print '    Plugins are being installed'
-  print '    Wait until Packer completes,'
-  print '       then restart nvim'
-  print '=================================='
-  return
-end
-
 -- Global settings
 vim.g.mapleader = ','
 
@@ -69,6 +30,28 @@ vim.opt.mouse = ''
 -- Ignore the case when the search pattern is all lowercase
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
+
+
+require('lazy').setup({
+
+  -- Gruvbox theme
+  'ellisonleao/gruvbox.nvim',
+
+  -- Mason (installs language servers for example)
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  "neovim/nvim-lspconfig",
+
+  {'nvim-lualine/lualine.nvim',
+    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
+  },
+
+  "nvim-treesitter/nvim-treesitter",
+
+  -- syntastic, python flake8 seems to be active by default
+  "vim-syntastic/syntastic",
+})
+
 
 -- Set colorscheme
 vim.o.termguicolors = true
@@ -166,6 +149,7 @@ require('nvim-treesitter.configs').setup({
     'c',
     'lua',
     'vim',
+    'vimdoc',
     'javascript',
     'typescript',
     'tsx',
