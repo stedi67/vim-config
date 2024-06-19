@@ -50,6 +50,9 @@ require('lazy').setup({
 
   -- syntastic, python flake8 seems to be active by default
   "vim-syntastic/syntastic",
+
+  -- nim
+  "alaviss/nim.nvim",
 })
 
 
