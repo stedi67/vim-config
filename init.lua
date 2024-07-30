@@ -125,8 +125,26 @@ require("mason-lspconfig").setup()
 
 -- Language Server Setup
 require("lspconfig").pyright.setup{
-    on_attach = on_attach,
+  on_attach = on_attach,
+  settings = {
+    pyright = {
+      -- Using Ruff's import organizer
+      disableOrganizeImport = true,
+    },
+    python = {
+      analysis = {
+        -- Ignore all files for analysis to exclusively user Ruff for linting
+        ignore = { '*' },
+      },
+    },
+  },
 }
+
+require("lspconfig").ruff.setup({
+  init_options = {
+    settings = {},
+  },
+})
 
 require('lualine').setup {
   options = {
