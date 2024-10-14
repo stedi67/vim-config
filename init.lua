@@ -124,7 +124,12 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- Language Server Setup
+-- use ':Mason' to install the required lsp servers
 require("lspconfig").pyright.setup{
+    on_attach = on_attach,
+}
+
+require("lspconfig").ruff_lsp.setup{
     on_attach = on_attach,
 }
 
