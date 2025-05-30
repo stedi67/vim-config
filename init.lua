@@ -124,9 +124,28 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 -- Language Server Setup
-require("lspconfig").pyright.setup{
+--
+require("lspconfig").pylsp.setup{
     on_attach = on_attach,
 }
+
+require('lspconfig').ruff.setup({
+  init_options = {
+    settings = {
+      -- Optional: specify your Ruff configuration file
+      configuration = "~/.config/ruff/ruff.toml",
+      -- Optional: set the log level (e.g., "debug", "info", "warn", "error")
+      logLevel = "info",
+      -- Optional: define linting rules to select
+      lint = {
+        select = { "E", "F" },
+        ignore = { "E501" }, -- Example: ignore line length errors
+      },
+      -- Optional: set the line length
+      lineLength = 88,
+    },
+  },
+})
 
 require('lualine').setup {
   options = {
