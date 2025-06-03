@@ -38,9 +38,9 @@ require('lazy').setup({
   'ellisonleao/gruvbox.nvim',
 
   -- Mason (installs language servers for example)
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
+  "mason-org/mason.nvim",
+  "mason-org/mason-lspconfig.nvim",
 
   {'nvim-lualine/lualine.nvim',
     dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
@@ -108,9 +108,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<space>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
+  vim.keymap.set('n', '<space>wl',
+    function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end,
+    bufopts)
   vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
   vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
   vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
@@ -121,31 +123,23 @@ end
 
 -- Mason setup
 require("mason").setup()
-require("mason-lspconfig").setup()
+-- There had been breaking changes in mason
+-- and mason-lspconfig which messed up
+-- the previous language server configuration
+--
+-- TODO: switch to the new language server configuration
+--
+-- beware: running setup for mason-lspconfig causes
+-- below language servers to be attached twice!!!
+-- require("mason-lspconfig").setup()
 
 -- Language Server Setup
---
-require("lspconfig").pylsp.setup{
-    on_attach = on_attach,
+
+require("lspconfig").jedi_language_server.setup{
+   on_attach = on_attach,
 }
 
-require('lspconfig').ruff.setup({
-  init_options = {
-    settings = {
-      -- Optional: specify your Ruff configuration file
-      configuration = "~/.config/ruff/ruff.toml",
-      -- Optional: set the log level (e.g., "debug", "info", "warn", "error")
-      logLevel = "info",
-      -- Optional: define linting rules to select
-      lint = {
-        select = { "E", "F" },
-        ignore = { "E501" }, -- Example: ignore line length errors
-      },
-      -- Optional: set the line length
-      lineLength = 88,
-    },
-  },
-})
+require("lspconfig").ruff.setup{}
 
 require('lualine').setup {
   options = {
