@@ -135,7 +135,7 @@ require("mason").setup()
 
 -- Language Server Setup
 
-require("lspconfig").jedi_language_server.setup{
+require("lspconfig").pylsp.setup{
    on_attach = on_attach,
 }
 
