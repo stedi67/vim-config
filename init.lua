@@ -139,7 +139,13 @@ require("lspconfig").pylsp.setup{
    on_attach = on_attach,
 }
 
-require("lspconfig").ruff.setup{}
+require("lspconfig").ruff.setup{
+    init_options = {
+        settings = {
+            configuration = "~/.config/ruff/ruff.toml"
+        }
+    }
+}
 
 require('lualine').setup {
   options = {
