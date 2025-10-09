@@ -123,29 +123,24 @@ end
 
 -- Mason setup
 require("mason").setup()
--- There had been breaking changes in mason
--- and mason-lspconfig which messed up
--- the previous language server configuration
---
--- TODO: switch to the new language server configuration
---
--- beware: running setup for mason-lspconfig causes
--- below language servers to be attached twice!!!
--- require("mason-lspconfig").setup()
 
 -- Language Server Setup
+vim.lsp.enable('mason-lspconfig')
 
-require("lspconfig").pylsp.setup{
+vim.lsp.config('pylsp', {
    on_attach = on_attach,
-}
+})
+vim.lsp.enable('pylsp')
 
-require("lspconfig").ruff.setup{
+vim.lsp.config('ruff', {
     init_options = {
         settings = {
-            configuration = "~/.config/ruff/ruff.toml"
+            target_version = "py312"
+            -- configuration = "~/.config/ruff/ruff.toml"
         }
     }
-}
+})
+vim.lsp.enable('ruff')
 
 require('lualine').setup {
   options = {
