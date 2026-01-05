@@ -46,10 +46,10 @@ require('lazy').setup({
     dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
   },
 
-  "nvim-treesitter/nvim-treesitter",
+ "nvim-treesitter/nvim-treesitter",
 
   -- syntastic, python flake8 seems to be active by default
-  "vim-syntastic/syntastic",
+--  "vim-syntastic/syntastic",
 
   -- nim
   "alaviss/nim.nvim",
@@ -127,10 +127,10 @@ require("mason").setup()
 -- Language Server Setup
 vim.lsp.enable('mason-lspconfig')
 
-vim.lsp.config('pylsp', {
-   on_attach = on_attach,
-})
-vim.lsp.enable('pylsp')
+-- vim.lsp.config('pylsp', {
+--   on_attach = on_attach,
+-- })
+-- vim.lsp.enable('pylsp')
 
 vim.lsp.config('ruff', {
     init_options = {
@@ -141,6 +141,21 @@ vim.lsp.config('ruff', {
     }
 })
 vim.lsp.enable('ruff')
+
+vim.lsp.config('ty', {
+  on_attach = on_attach,
+  settings = {
+    ty = {
+      configuration = {
+        rules = {
+          ["unresolved-reference"] = "warn"
+        }
+      }
+    },
+  },
+})
+vim.lsp.enable('ty')
+
 
 require('lualine').setup {
   options = {
@@ -195,9 +210,9 @@ vim.diagnostic.config({
 vim.cmd('autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})')
 
 -- syntastic setup
-vim.opt.statusline:append('%#warningmsg#')
-vim.opt.statusline:append('%{SyntasticStatuslineFlag()}')
-vim.opt.statusline:append('%*')
-vim.g['syntastic_always_populate_loc_list'] = '1'
-vim.g['syntastic_check_on_open'] = '0'
-vim.g['syntastic_check_on_wq'] = '0'
+-- vim.opt.statusline:append('%#warningmsg#')
+-- vim.opt.statusline:append('%{SyntasticStatuslineFlag()}')
+-- vim.opt.statusline:append('%*')
+-- vim.g['syntastic_always_populate_loc_list'] = '1'
+-- vim.g['syntastic_check_on_open'] = '0'
+-- vim.g['syntastic_check_on_wq'] = '0'
