@@ -155,6 +155,11 @@ vim.lsp.enable('mason-lspconfig')
 -- vim.lsp.enable('pylsp')
 
 vim.lsp.config('ruff', {
+    on_attach = function(client)
+      client.server_capabilities.hoverProvider = false
+      client.server_capabilities.definitionProvider = false
+      client.server_capabilities.referencesProvider = false
+    end,
     init_options = {
         settings = {
             target_version = "py312"
@@ -165,7 +170,13 @@ vim.lsp.config('ruff', {
 vim.lsp.enable('ruff')
 
 vim.lsp.config('ty', {
-  on_attach = on_attach,
+  -- on_attach = on_attach,
+  on_attach = function(client)
+    client.server_capabilities.hoverProvider = false
+    client.server_capabilities.definitionProvider = false
+    client.server_capabilities.referencesProvider = false
+    client.server_capabilities.completionProvider = nil
+  end,
   settings = {
     ty = {
       configuration = {
@@ -177,6 +188,17 @@ vim.lsp.config('ty', {
   },
 })
 vim.lsp.enable('ty')
+
+
+vim.lsp.config('zubanls', {
+  on_attach = on_attach,
+  name = "ZubanLS",
+  cmd = { vim.fn.expand("$MASON/packages/zuban/venv/bin/zuban"), "server" },
+  root_markers = { "pyproject.toml", ".git" },
+  filetypes = { "python" },
+})
+
+vim.lsp.enable("zubanls")
 
 
 require('lualine').setup {
