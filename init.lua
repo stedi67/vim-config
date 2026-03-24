@@ -46,7 +46,10 @@ require('lazy').setup({
     dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
   },
 
- "nvim-treesitter/nvim-treesitter",
+  {"nvim-treesitter/nvim-treesitter",
+   lazy = false,
+   build = ':TSUpdate'
+  },
 
   -- syntastic, python flake8 seems to be active by default
 --  "vim-syntastic/syntastic",
@@ -217,7 +220,9 @@ require('lualine').setup {
   }
 }
 
-require('nvim-treesitter.configs').setup({
+require('nvim-treesitter').setup {
+  -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
+  install_dir = vim.fn.stdpath('data') .. '/site',
   highlight = {
     enable = true,
   },
@@ -242,7 +247,7 @@ require('nvim-treesitter.configs').setup({
     'ocaml',
     'rust',
   },
-})
+}
 
 -- display diagnostic messages as floating text
 vim.diagnostic.config({
