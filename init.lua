@@ -31,6 +31,9 @@ vim.opt.mouse = ''
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
 
+-- Don't do folding
+vim.opt.foldenable = false
+
 
 require('lazy').setup({
 
@@ -203,6 +206,15 @@ vim.lsp.config('zubanls', {
 
 vim.lsp.enable("zubanls")
 
+vim.lsp.config('nim_langserver', {
+  settings = {
+    nim = {
+      nimsuggestPath = "~/.nimble/bin/nimsuggest"
+    }
+  }
+})
+vim.lsp.enable("nim_langserver")
+
 
 require('lualine').setup {
   options = {
@@ -243,6 +255,7 @@ require('nvim-treesitter').setup {
     'haskell',
     'html',
     'htmldjango',
+    'nim',
     'nix',
     'ocaml',
     'rust',
